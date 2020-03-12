@@ -29,8 +29,41 @@ one two
 three
 """
 
+
 def fit_to_width(string, limit):
     """Print string within a character limit."""
+
+    line = ""
+
+    for char in string:
+        if 
+
+    # split_string = string.split(" ")
+
+    # for word in split_string:
+    #     line = ""
+    #     if len(line) < limit and len((line + " " + word)) < limit:
+    #         line = line + " " + word
+    #     else:
+    #         print(line)
+    #         line = ""
+
+
+
+    # def create_line(line, split_string):
+    #     while len(line) <= limit:
+    #         i = 0
+    #         word = split_string[i]
+    #         if len(line + word) <= limit:
+    #             split_string.pop(i)
+    #             line = line + word + " "
+    #         if i < len(split_string):
+    #             i += 1
+    #     print(line)
+    #     if split_string:
+    #         create_line("", split_string)
+
+    # create_line("", split_string)
 
 
 if __name__ == '__main__':
