@@ -77,7 +77,6 @@ Consider our most complex case::
     15
 
 """
-from math import ceil
 
 
 def lunch_count(garden):
@@ -99,7 +98,7 @@ def lunch_count(garden):
     list_mid_x = []
 
     # Check midpoint for rows and cols
-    
+
     if nrows % 2 != 0:
         list_mid_y.append(nrows // 2)
     else:
@@ -115,25 +114,55 @@ def lunch_count(garden):
     print(list_mid_y)
     print(list_mid_x)
 
+    # Find the midpoint with the most carrots
+
     start_x = 0
     start_y = 0
     start_carrots = 0
 
-    for y in list_mid_y:
+    # If only one possible midpoint, set starting points and starting carrots
+    if len(list_mid_x) == 1 and len(list_mid_y) == 1:
+        start_x = list_mid_x[0]
+        start_y = list_mid_y[0]
+        start_carrots = garden[start_x][start_y]
+
+    # Find start if there's only one possible x start,
+    # but multiple y starting points
+    elif len(list_mid_x) == 1:
+        start_x = list_mid_x[0]
+        for y in list_mid_y:
+            carrots = garden[y][start_x]
+            if carrots > start_carrots:
+                start_carrots = carrots
+                start_y = y
+
+    # Find start if there's only one possible y start,
+    # but multiple x starting points
+    elif len(list_mid_y) == 1:
+        start_y = list_mid_y[0]
         for x in list_mid_x:
-            carrots = garden[y][x]
-            if carrots == 0:
-                return 0
+            carrots = garden[start_y][x]
             if carrots > start_carrots:
                 start_carrots = carrots
                 start_x = x
-                start_y = y
+
+    # Find start if multiple x and y starting points
+    else:
+        for y in list_mid_y:
+            for x in list_mid_x:
+                carrots = garden[y][x]
+                if carrots == 0:
+                    return 0
+                if carrots > start_carrots:
+                    start_carrots = carrots
+                    start_x = x
+                    start_y = y
 
     print(start_y)
     print(start_x)
     print(start_carrots)
 
-# check garden[y][x]
+
 
 if __name__ == '__main__':
     import doctest
