@@ -77,6 +77,7 @@ Consider our most complex case::
     15
 
 """
+from math import ceil
 
 
 def lunch_count(garden):
@@ -93,6 +94,46 @@ def lunch_count(garden):
 
     nrows = len(garden)
     ncols = len(garden[0])
+
+    list_mid_y = []
+    list_mid_x = []
+
+    # Check midpoint for rows and cols
+    
+    if nrows % 2 != 0:
+        list_mid_y.append(nrows // 2)
+    else:
+        list_mid_y.append((nrows // 2) - 1)
+        list_mid_y.append(nrows // 2)
+
+    if ncols % 2 != 0:
+        list_mid_x.append(ncols // 2)
+    else:
+        list_mid_x.append((ncols // 2) - 1)
+        list_mid_x.append(ncols // 2)
+
+    print(list_mid_y)
+    print(list_mid_x)
+
+    start_x = 0
+    start_y = 0
+    start_carrots = 0
+
+    for y in list_mid_y:
+        for x in list_mid_x:
+            carrots = garden[y][x]
+            if carrots == 0:
+                return 0
+            if carrots > start_carrots:
+                start_carrots = carrots
+                start_x = x
+                start_y = y
+
+    print(start_y)
+    print(start_x)
+    print(start_carrots)
+
+# check garden[y][x]
 
 if __name__ == '__main__':
     import doctest
