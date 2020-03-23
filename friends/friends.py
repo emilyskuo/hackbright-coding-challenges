@@ -127,6 +127,21 @@ class FriendGraph(object):
     def are_connected(self, name1, name2):
         """Is this name1 friends with name2?"""
 
+        person = self.nodes[name1]
+        possible_connections = [person]
+        checked_connections = set()
+        checked_connections.add(person)
+
+        while possible_connections:
+            person = possible_connections.pop()
+            if person.name == name2:
+                return True
+            for connection in person.adjacent - checked_connections:
+                possible_connections.append(connection)
+                checked_connections.add(connection)
+
+        return False
+
 
 if __name__ == '__main__':
     import doctest
