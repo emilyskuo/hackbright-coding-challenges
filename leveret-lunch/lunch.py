@@ -111,9 +111,6 @@ def lunch_count(garden):
         list_mid_x.append((ncols // 2) - 1)
         list_mid_x.append(ncols // 2)
 
-    print(list_mid_y)
-    print(list_mid_x)
-
     # Find the midpoint with the most carrots
 
     start_x = 0
@@ -124,7 +121,7 @@ def lunch_count(garden):
     if len(list_mid_x) == 1 and len(list_mid_y) == 1:
         start_x = list_mid_x[0]
         start_y = list_mid_y[0]
-        start_carrots = garden[start_x][start_y]
+        start_carrots = garden[start_y][start_x]
 
     # Find start if there's only one possible x start,
     # but multiple y starting points
@@ -158,10 +155,62 @@ def lunch_count(garden):
                     start_x = x
                     start_y = y
 
-    print(start_y)
-    print(start_x)
-    print(start_carrots)
+    # Leveret looks WNES and chooses the spot with the most carrots
 
+    next_carrots = start_carrots
+    total_carrots = 0
+    current_x = start_x
+    current_y = start_y
+    next_x = 0
+    next_y = 0
+
+    while next_carrots > 0:
+        # Add carrots to total carrot count, zero out carrots in garden spot,
+        # reset next carrots to 0
+        total_carrots += next_carrots
+        garden[current_y][current_x] = 0
+        next_carrots = 0
+
+        # Find next spot to eat carrots from
+
+        # Check west cell - assume this will be the next move unless NES have
+        # more carrots
+        if current_x >= 1:
+            next_x = current_x - 1
+            next_y = current_y
+            next_carrots = garden[next_y][next_x]
+        # Check north cell, compare to west (aka next)
+        if current_y >= 1:
+            north_x = current_x
+            north_y = current_y - 1
+            north_carrots = garden[north_y][north_x]
+            if north_carrots > next_carrots:
+                next_carrots = north_carrots
+                next_x = north_x
+                next_y = north_y
+        # Check east cell, compare to next
+        if current_x < ncols - 1:
+            east_x = current_x + 1
+            east_y = current_y
+            east_carrots = garden[east_y][east_x]
+            if east_carrots > next_carrots:
+                next_carrots = east_carrots
+                next_x = east_x
+                next_y = east_y
+        # Check south cell, compare to next
+        if current_y < nrows - 1:
+            south_x = current_x
+            south_y = current_y + 1
+            south_carrots = garden[south_y][south_x]
+            if south_carrots > next_carrots:
+                next_carrots = south_carrots
+                next_x = south_x
+                next_y = south_y
+        # Leveret moves into next cell
+        current_x = next_x
+        current_y = next_y
+
+    return total_carrots
 
 
 if __name__ == '__main__':
