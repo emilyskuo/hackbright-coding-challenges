@@ -30,6 +30,9 @@ Examples::
 def is_anagram_of_palindrome(word):
     """Is the word an anagram of a palindrome?"""
 
+    if word == word[-1]:
+        return True
+
 
 if __name__ == '__main__':
     import doctest
