@@ -33,6 +33,26 @@ def is_anagram_of_palindrome(word):
     if word == word[-1]:
         return True
 
+    word_count = {}
+
+    for letter in word:
+        if letter in word_count:
+            word_count[letter] += 1
+        else:
+            word_count[letter] = 1
+
+    nonpaired_letters = []
+
+    for letter, count in word_count.items():
+        if count % 2 != 0:
+            nonpaired_letters.append(letter)
+
+    if len(nonpaired_letters) > 1:
+        return False
+
+    return True
+
+
 
 if __name__ == '__main__':
     import doctest
