@@ -25,8 +25,10 @@ def add_to_zero(nums):
     """Given list of ints, return True if any two nums sum to 0."""
 
     for i, num in enumerate(nums):
+        if num == 0:
+            return True
         if i < len(nums) - 1:
-            for num2 in nums:
+            for num2 in nums[i+1:]:
                 if num + num2 == 0:
                     return True
 
