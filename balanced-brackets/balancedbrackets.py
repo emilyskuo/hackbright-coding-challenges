@@ -54,6 +54,29 @@ def has_balanced_brackets(phrase):
     string contains balanced (), {}, [], and/or <>.
     """
 
+    brackets = {"(": ")",
+                "{": "}",
+                "[": "]",
+                "<": ">"
+                }
+
+    is_balanced = []
+
+    for char in phrase:
+        if not is_balanced and char in brackets.values():
+            return False
+
+        if char in brackets:
+            is_balanced.append(char) 
+        if char in brackets.values() and char == brackets[is_balanced[-1]]:
+            is_balanced.pop()
+
+    if is_balanced:
+        return False
+
+    return True
+
+
 if __name__ == '__main__':
     import doctest
     if doctest.testmod().failed == 0:
